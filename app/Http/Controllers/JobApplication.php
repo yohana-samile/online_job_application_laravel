@@ -11,7 +11,7 @@
 
     class JobApplication extends Controller {
         public function applicant(){
-            $applicants = DB::select("SELECT * FROM users, applicants, applicant_profiles WHERE applicants.user_id = users.id AND applicant_profiles.user_id = users.id ");
+            $applicants = DB::select("SELECT * FROM users, applicants WHERE applicants.user_id = users.id ");
             return view('users/applicant', [
                 'applicants' => $applicants,
             ]);
@@ -86,6 +86,36 @@
 
             if ($complite_profile) {
                 return redirect()->back()->with('success', 'Your Application Sent Successfuly, check for application page in left sidebar');
+            }
+            else{
+                return redirect()->back()->withErrors('error', 'Fail Try Again!');
+            }
+        }
+
+        public function jobApplication(){
+            $applications = DB::select("SELECT users.first_name, users.surname, applications.date_applied, applications.id, applications.status as application_status, applications.interview_date, applicants.job_seeker_cv, jobs.jobTitle FROM applications, users, applicants, jobs WHERE applicants.user_id = users.id AND applications.user_id = users.id AND applications.job_id = jobs.id ");
+            return view('jobApplication', compact('applications'));
+        }
+
+
+        public function deny_this_application(Request $request, $id){
+            $update = Application::findOrFail($id);
+            $update->update(['status' => 'deny']);
+            if ($update) {
+                return redirect()->back()->with('success', 'Application Denied');
+            }
+            else{
+                return redirect()->back()->withErrors('error', 'Fail Try Again!');
+            }
+        }
+
+        // invite_for_interview
+        public function invite_for_interview(Request $request, $id){
+            $update = Application::findOrFail($id);
+            $interview_date = $request->input('interview_date');
+            $update->update(['status' => 'accepted', 'interview_date' => $interview_date]);
+            if ($update) {
+                return redirect()->back()->with('success', 'Application Accepted, Interview Date Set');
             }
             else{
                 return redirect()->back()->withErrors('error', 'Fail Try Again!');

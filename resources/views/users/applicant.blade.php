@@ -35,7 +35,7 @@
                                 <td>{{ $applicant->email }}</td>
                                 <td>{{ $applicant->nationality }}</td>
                                 <td>{{ $applicant->gender }}</td>
-                                <td><a href="" target="_blank">View Cv <i class="fa fa-eye"></i></a></td>
+                                <td><a href="{{ Storage::url($applicant->job_seeker_cv) }}" target="_blank">View Cv <i class="fa fa-eye"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>

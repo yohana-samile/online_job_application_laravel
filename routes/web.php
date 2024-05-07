@@ -26,4 +26,8 @@
         Route::post('complite_registration', 'complite_registration')->name('complite_registration');
         Route::post('send_application', 'send_application')->name('send_application');
         Route::post('apply_for_a_job', 'apply_for_a_job')->name('apply_for_a_job');
+
+        Route::get('jobApplication', 'jobApplication');
+        Route::post('deny_this_application/{id}', 'deny_this_application')->name('deny_this_application');
+        Route::post('invite_for_interview/{id}', 'invite_for_interview')->name('invite_for_interview');
     })->middleware('auth');

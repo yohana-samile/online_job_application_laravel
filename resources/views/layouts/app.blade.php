@@ -39,14 +39,11 @@
                     <a href="{{ url('users/applicant') }}"><span class="fa fa-user"></span> Applicant</a>
                 </li>
                 <li>
-                    <a href="view/jobApplication.php"><span class="fa fa-envelope"></span> Application</a>
+                    <a href="{{ url('jobApplication')}}"><span class="fa fa-envelope"></span> Application</a>
                 </li>
                 <li>
                     <a class="nav-link" href="view/contactAboutUs.php"><i class="fa fa-phone"> About Us</i></a>
                 </li>
-                    <li>
-                        <a href="view/jobApplicationResult.php"><span class="fa fa-envelope"></span> Application</a>
-                    </li>
 
                 <li>
                     <a href="view/jobPosted.php"><span class="fa fa-database"></span> Jobs</a>
