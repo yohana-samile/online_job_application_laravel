@@ -29,5 +29,15 @@
 
         Route::get('jobApplication', 'jobApplication');
         Route::post('deny_this_application/{id}', 'deny_this_application')->name('deny_this_application');
-        Route::post('invite_for_interview/{id}', 'invite_for_interview')->name('invite_for_interview');
+        Route::get('interview_invitation/{id}', 'interview_invitation');
+        Route::post('store_interview_date', 'store_interview_date')->name('store_interview_date');
+
+        // jobPosted
+        Route::get('jobPosted', 'jobPosted');
+        Route::get('extend_job_application/{id}', 'extend_job_application');
+        Route::post('store_extended_job_application', 'store_extended_job_application')->name('store_extended_job_application');
+        Route::post('close_job_application/{id}', 'close_job_application')->name('close_job_application');
+
+        // my_application
+        Route::get('my_application', 'my_application');
     })->middleware('auth');

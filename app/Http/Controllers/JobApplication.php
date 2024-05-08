@@ -97,7 +97,7 @@
             return view('jobApplication', compact('applications'));
         }
 
-
+        // deny_this_application
         public function deny_this_application(Request $request, $id){
             $update = Application::findOrFail($id);
             $update->update(['status' => 'deny']);
@@ -121,4 +121,73 @@
                 return redirect()->back()->withErrors('error', 'Fail Try Again!');
             }
         }
-}
+
+        // interview_invitation
+        public function interview_invitation($id){
+            $application_id = Application::findOrFail($id);
+            return view('interview_invitation', compact('application_id'));
+        }
+
+        // store_interview_date
+        public function store_interview_date(Request $request){
+            $data = $request->validate([
+                'id' => 'required',
+                'interview_date' => 'required',
+                'status' => 'required',
+            ]);
+            $update = Application::findOrFail($data['id']);
+            $update->update(['status' => 'accepted', 'interview_date' => $data['interview_date']]);
+            if ($update) {
+                return redirect()->back()->with('success', 'Application Accepted, Interview Date Set');
+            }
+            else{
+                return redirect()->back()->withErrors('error', 'Fail Try Again!');
+            }
+        }
+
+        // jobs
+        public function jobPosted(){
+            $jobs = Job::get();
+            return view('jobPosted', compact('jobs'));
+        }
+
+        // extend_job_application
+        public function extend_job_application($id){
+            $job_id = Job::findOrFail($id);
+            return view('extend_job_application', compact('job_id'));
+        }
+
+        // store_extended_job_application
+        public function store_extended_job_application(Request $request){
+            $data = $request->validate([
+                'id' => 'required',
+                'endOfApllication' => 'required',
+            ]);
+            $update = Job::findOrFail($data['id']);
+            $update->update(['status' => 'extended', 'endOfApllication' => $data['endOfApllication']]);
+            if ($update) {
+                return redirect()->back()->with('success', 'Application Extended Successfully');
+            }
+            else{
+                return redirect()->back()->withErrors('error', 'Fail Try Again!');
+            }
+        }
+
+        // close_job_application
+        public function close_job_application(Request $request, $id){
+            $update = Job::findOrFail($id);
+            $update->update(['status' => 'closed']);
+            if ($update) {
+                return redirect()->back()->with('success', 'Application Closed Successfully');
+            }
+            else{
+                return redirect()->back()->withErrors('error', 'Fail Try Again!');
+            }
+        }
+
+        // my_application
+        public function my_application(){
+            $my_applications = Job::findOrFail($id);
+            return view('my_application', compact('my_applications'));
+        }
+    }

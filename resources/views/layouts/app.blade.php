@@ -36,17 +36,22 @@
                     <a href="{{url('home')}}"><span class="fa fa-home"></span> Home</a>
                 </li>
                 <li>
+                    <a class="nav-link" href="{{ url('my_application')}}"><span class="fa fa-database"></span> My Application</i></a>
+                </li>
+                <li>
                     <a href="{{ url('users/applicant') }}"><span class="fa fa-user"></span> Applicant</a>
                 </li>
                 <li>
                     <a href="{{ url('jobApplication')}}"><span class="fa fa-envelope"></span> Application</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="view/contactAboutUs.php"><i class="fa fa-phone"> About Us</i></a>
+                    <a href="{{ url('jobPosted') }}"><span class="fa fa-database"></span> Jobs</a>
                 </li>
-
                 <li>
-                    <a href="view/jobPosted.php"><span class="fa fa-database"></span> Jobs</a>
+                    <a class="nav-link" href="{{ url('home')}}"><span class="fa fa-database"></span> Post New Job</i></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="javascript::void(0)"><span class="fa fa-phone"></span>About Us</i></a>
                 </li>
                 <li>
                     <a href="{{ route('logout') }}"

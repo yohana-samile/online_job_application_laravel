@@ -5,7 +5,7 @@
     $userId = Auth::user()->id;
     $userRole = DB::select("SELECT roles.name as role_name, users.id from roles, users where users.role_id = roles.id and users.id = '$userId' ");
     $userRole = $userRole[0];
-    $jobs = DB::select("SELECT * from jobs where status = 'unclosed' ");
+    $jobs = DB::select("SELECT * from jobs where status != 'closed' ");
     $profile = DB::select("SELECT * from applicants where cv_uploaded = 1 and user_id = '$userId' ");
     $today_date = \Carbon\Carbon::now()->format('Y-m-d');
 @endphp
@@ -28,6 +28,9 @@
                         </ul>
                     </div>
                 @endif
+                @if (empty($jobs))
+                    <p class="alert alert-danger">No Job Posted At The Moment</p>
+                @endif
                 @foreach ($jobs as $index => $job)
                     @if($index % 3 == 0 && $index > 0)
                         </div><div class="row">
@@ -45,7 +48,6 @@
                                     </div>
                                 @else
                                     <!-- Button apply jobs -->
-                                    {{-- <a href="{{ url('login') }}" class="btn btn-light text-white float-right">Apply For A Job </a> --}}
                                     <form method="POST" action="{{ route('apply_for_a_job') }}" enctype="multipart/form-data">
                                         @csrf
                                             <input type="hidden" id="date_applied" name="date_applied" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="form-control" />

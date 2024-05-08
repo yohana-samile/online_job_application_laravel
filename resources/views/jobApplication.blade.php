@@ -55,20 +55,17 @@
                                         <div class="col-md-4">
                                             @if ($application->interview_date == null)
                                                 @if ($application->application_status != 'deny')
-                                                    <form action="{{ route('invite_for_interview', ['id' => $application->id]) }}" method="POST">
-                                                        @csrf
-                                                        <input type="submit" value="Invite Interview" class="text-white primaryColor form-control">
-                                                    </form>
+                                                    <a href="{{ url('interview_invitation', ['id' => $application->id]) }}" class="primaryColor btn-sm text-white">Invite Interview <i class="fa fa-eye"></i></a>
                                                 @endif
                                             @else
-                                                <h4>{{ $application->interview_date }}</h4>
+                                                <p class="alert alert-success">{{ $application->interview_date }}</p>
                                             @endif
                                         </div>
                                         <div class="col-md-4">
                                             @if ($application->application_status == "pending")
                                                 <form action="{{ route('deny_this_application', ['id' => $application->id]) }}" method="POST">
                                                     @csrf
-                                                    <input type="submit" value="Deny" class="text-white primaryColor form-control">
+                                                    <input type="submit" value="Deny" class="text-white bg-danger form-control">
                                                 </form>
                                             @else
                                                 <p class="alert alert-danger">Denied <i class="fa fa-mark"></i></p>
@@ -77,14 +74,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            {{-- model --}}
-                            <form action="{{ route('invite_for_interview', ['id' => $application->id]) }}" method="POST">
-                                @csrf
-                                <!-- Other form fields -->
-                                <label for="interview_date">Interview Date:</label>
-                                <input type="date" name="interview_date" id="interview_date">
-                                <button type="submit">Submit</button>
-                            </form>
                         @endforeach
                     </tbody>
                 </table>
