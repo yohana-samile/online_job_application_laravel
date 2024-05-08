@@ -8,7 +8,8 @@
     use DB;
     use Illuminate\Http\File;
     use Illuminate\Support\Facades\Storage;
-
+    use Illuminate\Support\Facades\Auth;
+    
     class JobApplication extends Controller {
         public function applicant(){
             $applicants = DB::select("SELECT * FROM users, applicants WHERE applicants.user_id = users.id ");
@@ -187,7 +188,14 @@
 
         // my_application
         public function my_application(){
-            $my_applications = Job::findOrFail($id);
+            $user = Auth::user()->id;
+            $my_applications = DB::select("SELECT applications.date_applied, applications.id, applications.status as application_status, applications.interview_date, applicants.job_seeker_cv, jobs.jobTitle FROM
+                applications, users, applicants, jobs WHERE
+                applicants.user_id = users.id AND
+                applications.user_id = users.id AND
+                applications.job_id = jobs.id AND
+                applications.user_id = '$user'
+            ");
             return view('my_application', compact('my_applications'));
         }
     }

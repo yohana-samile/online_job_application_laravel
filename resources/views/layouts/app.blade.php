@@ -28,6 +28,12 @@
     </style>
 </head>
 <body>
+    @php
+        use Illuminate\Support\Facades\DB;
+        $userId = Auth::user()->id;
+        $userRole = DB::select("SELECT roles.name as role_name, users.id from roles, users where users.role_id = roles.id and users.id = '$userId' ");
+        $userRole = $userRole[0];
+    @endphp
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar" class="active">
             <p> <a href="{{url('home')}}" class="logo">Online Job</a></p>
@@ -35,24 +41,27 @@
                 <li class="active">
                     <a href="{{url('home')}}"><span class="fa fa-home"></span> Home</a>
                 </li>
-                <li>
-                    <a class="nav-link" href="{{ url('my_application')}}"><span class="fa fa-database"></span> My Application</i></a>
-                </li>
-                <li>
-                    <a href="{{ url('users/applicant') }}"><span class="fa fa-user"></span> Applicant</a>
-                </li>
-                <li>
-                    <a href="{{ url('jobApplication')}}"><span class="fa fa-envelope"></span> Application</a>
-                </li>
-                <li>
-                    <a href="{{ url('jobPosted') }}"><span class="fa fa-database"></span> Jobs</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="{{ url('home')}}"><span class="fa fa-database"></span> Post New Job</i></a>
-                </li>
-                <li>
-                    <a class="nav-link" href="javascript::void(0)"><span class="fa fa-phone"></span>About Us</i></a>
-                </li>
+                @if ($userRole->role_name === 'is_applicant')
+                    <li>
+                        <a class="nav-link" href="{{ url('my_application')}}"><span class="fa fa-database"></span> My Application</i></a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ url('users/applicant') }}"><span class="fa fa-user"></span> Applicant</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('jobApplication')}}"><span class="fa fa-envelope"></span> Application</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('jobPosted') }}"><span class="fa fa-database"></span> Jobs</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ url('home')}}"><span class="fa fa-database"></span> Post New Job</i></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="javascript::void(0)"><span class="fa fa-phone"></span>About Us</i></a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
@@ -74,7 +83,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
                 <div class="container-fluid">
                     <button type="button" id="sidebarCollapse" class="btn btn-light">
-                        <i class="fa fa-bars"></i>
+                        <i class="fa fa-bars text-white"></i>
                         <span class="sr-only">Toggle Menu</span>
                     </button> <p> Welcome Dear <b>{{ Auth::user()->surname }}</b>
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

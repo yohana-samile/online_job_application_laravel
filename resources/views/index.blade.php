@@ -57,6 +57,9 @@
     @endphp
     <div class="container">
         <div class="row">
+            @if (empty($jobs))
+                <p class="alert alert-danger my-4">No Job Posted At The Moment, Visit This Page Onother time</p>
+            @endif
             @foreach ($jobs as $index => $job)
                 @if($index % 3 == 0 && $index > 0)
                     </div><div class="row">
@@ -83,3 +86,79 @@
         </div>
     </div>
 {{-- footer --}}
+<footer class="text-center text-lg-start text-white text-muted primaryColor">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom primaryColor text-white">
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+            <span>Get connected with us on social networks:</span>
+        </div>
+
+        <div>
+            <a href="https://github.com/yohana-samile" class="text-decoration-none me-4 text-reset">
+                <i class="fa fa-facebook-f"></i>
+            </a>
+            <a href="https://github.com/yohana-samile" class="text-decoration-none me-4 text-reset">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a href="https://github.com/yohana-samile" class="text-decoration-none me-4 text-reset">
+                <i class="fa fa-google"></i>
+            </a>
+            <a href="https://github.com/yohana-samile" class="me-4 text-reset">
+                <i class="fa fa-instagram"></i>
+            </a>
+            <a href="https://github.com/yohana-samile" class="me-4 text-reset">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5 text-white">
+            <div class="row mt-3">
+                <div class="col-md-6 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                    <i class="fa fa-grass me-3"></i>Online Job Application
+                    </h6>
+                    <p>
+                    Fulfil your dream by getting dream job with us, enjoy our service to reach your dream.
+                    </p>
+                </div>
+
+                <div class="col-md-6 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4"> Useful links </h6>
+                    <p>
+                        <a href="#!" class="text-reset">Jobs</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Announcements</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">About Us</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Contact Us</a>
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p><i class="fa fa-home me-3"></i> P.o.box 1 Mzumbe</p>
+                    <p>
+                    <i class="fa fa-envelope me-3"></i>
+                    yohanasamile@gmail.com
+                    </p>
+                    <p><i class="fa fa-phone me-3"></i> + 255 620 350 083</p>
+                    <p><i class="fa fa-print me-3"></i> + 255 745 668 527</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2024 Copyright:
+    <a class="text-reset fw-bold" href="https://github.com/yohana-samile">Online Job Application</a>
+    </div>
+</footer>

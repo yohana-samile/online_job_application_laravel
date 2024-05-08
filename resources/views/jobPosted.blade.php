@@ -65,7 +65,7 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             @if ($job->pdf_description != null)
-                                                <a href="{{ Storage::url($job->pdf_description) }}" target="_blank" class="primaryColor btn-sm text-white">PDF <i class="fa fa-eye"></i></a>
+                                                <a href="{{ Storage::url($job->pdf_description) }}" target="_blank" class="primaryColor btn-sm text-white"><i class="fa fa-eye"></i></a>
                                             @endif
                                         </div>
                                         <div class="col-md-5">
