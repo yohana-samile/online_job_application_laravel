@@ -140,6 +140,9 @@
                     <p>
                         <a href="#!" class="text-reset">Contact Us</a>
                     </p>
+                    <p>
+                        <a href="{{ url('register') }}" class="text-reset">Register Me</a>
+                    </p>
                 </div>
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

@@ -61,6 +61,9 @@
                     <li>
                         <a class="nav-link" href="javascript::void(0)"><span class="fa fa-phone"></span>About Us</i></a>
                     </li>
+                    <li hidden>
+                        <a class="nav-link" href="{{ url('companies')}}"><span class="fa fa-user"></span>Companies</i></a>
+                    </li>
                 @endif
                 <li>
                     <a href="{{ route('logout') }}"
