@@ -52,7 +52,7 @@
     {{-- jobs --}}
     @php
         use Illuminate\Support\Facades\DB;
-        $jobs = DB::select("SELECT * from jobs where status = 'unclosed' ");
+        $jobs = DB::select("SELECT jobs.*, users.name as company_name from jobs, users where jobs.user_id = users.id and status = 'unclosed' ");
         $today_date = \Carbon\Carbon::now()->format('Y-m-d');
     @endphp
     <div class="container">
@@ -79,6 +79,7 @@
                                 <!-- Button apply jobs -->
                                 <a href="{{ url('login') }}" class="btn btn-light float-right">Login Apply </a>
                             @endif
+                            <small>Company name: {{ $job->company_name }}</small>
                         </div>
                     </div>
                 </div>

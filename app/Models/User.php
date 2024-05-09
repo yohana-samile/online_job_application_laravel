@@ -18,11 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'surname',
-        'email',
-        'role_id',
-        'password',
+        'name', 'email', 'role_id', 'password',
     ];
 
     /**
@@ -31,8 +27,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -50,5 +45,8 @@ class User extends Authenticatable
     }
     public function applicant() {
         return $this->hasOne(Applicant::class);
+    }
+    public function jobs() {
+        return $this->hasMany(Job::class);
     }
 }

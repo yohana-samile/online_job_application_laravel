@@ -12,8 +12,7 @@
         public function run(): void
         {
             DB::table('users')->insert([
-                'first_name' => 'Developer',
-                'surname' => 'Samile',
+                'name' => 'Developer Samile',
                 'email' => 'yohanasamile@gmail.com',
                 'role_id' => 1,
                 'password' => Hash::make('12345678'),

@@ -9,7 +9,7 @@
     use Illuminate\Http\File;
     use Illuminate\Support\Facades\Storage;
     use Illuminate\Support\Facades\Auth;
-    
+
     class JobApplication extends Controller {
         public function applicant(){
             $applicants = DB::select("SELECT * FROM users, applicants WHERE applicants.user_id = users.id ");
@@ -28,6 +28,7 @@
                 'pdf_description' => 'nullable',
             ]);
 
+            $company = Auth::user()->id;
             $post_job = Job::create([
                 'jobTitle' => $validateData['jobTitle'],
                 'jobDiscription' => $validateData['jobDiscription'],
@@ -35,6 +36,7 @@
                 'datePosted' => $validateData['datePosted'],
                 'endOfApllication' => $validateData['endOfApllication'],
                 'pdf_description' => $validateData['pdf_description'],
+                'user_id' => $company,
             ]);
 
             if ($post_job) {

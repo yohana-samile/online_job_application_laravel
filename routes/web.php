@@ -1,6 +1,7 @@
 <?php
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\JobApplication;
+    use App\Http\Controllers\RegisterCompanyController;
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -40,4 +41,11 @@
 
         // my_application
         Route::get('my_application', 'my_application');
+    })->middleware('auth');
+
+    // register company
+    Route::controller(RegisterCompanyController::class)->group(function () {
+        Route::get('companies', 'companies');
+        Route::get('register_new_company', 'register_new_company');
+        Route::post('store_company', 'store_company')->name('store_company');
     })->middleware('auth');
