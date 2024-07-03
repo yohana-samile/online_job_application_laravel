@@ -12,7 +12,8 @@
 
     class JobApplication extends Controller {
         public function applicant(){
-            $applicants = DB::select("SELECT * FROM users, applicants WHERE applicants.user_id = users.id ");
+            $user = Auth::user()->id;
+            $applicants = DB::select("SELECT * FROM users, applicants WHERE applicants.user_id = users.id and applicants.user_id = '$user' ");
             return view('users/applicant', [
                 'applicants' => $applicants,
             ]);
@@ -25,8 +26,15 @@
                 'jobSalary' => 'nullable',
                 'datePosted' => 'required',
                 'endOfApllication' => 'required',
-                'pdf_description' => 'nullable',
+                'pdf_description' => 'nullable|mimes:pdf',
             ]);
+
+            $pdf_path = null;
+            if ($request->hasFile('pdf_description')) {
+                $originalFileName = $request->file('pdf_description')->getClientOriginalName();
+                $pdf_path = 'pdf_descriptions/' . $originalFileName;
+                $request->file('pdf_description')->move(public_path('pdf_descriptions'), $originalFileName); // Store the file in the public folder
+            }
 
             $company = Auth::user()->id;
             $post_job = Job::create([
@@ -35,7 +43,7 @@
                 'jobSalary' => $validateData['jobSalary'],
                 'datePosted' => $validateData['datePosted'],
                 'endOfApllication' => $validateData['endOfApllication'],
-                'pdf_description' => $validateData['pdf_description'],
+                'pdf_description' => $pdf_path,
                 'user_id' => $company,
             ]);
 
@@ -56,8 +64,9 @@
             ]);
 
             $originalFileName = $request->file('job_seeker_cv')->getClientOriginalName();
-            $cv_path = $request->file('job_seeker_cv')->storeAs('public/cv/', $originalFileName);
-            // $cv_path = $request->file('job_seeker_cv')->storeAs('public/cv');
+            $cv_path = 'cv/' . $originalFileName;
+            $request->file('job_seeker_cv')->move(public_path('cv'), $originalFileName); // Store the file in the public folder
+
             $complite_profile = Applicant::create([
                 'gender' => $validateData['gender'],
                 'nationality' => $validateData['nationality'],
@@ -96,7 +105,7 @@
         }
 
         public function jobApplication(){
-            $applications = DB::select("SELECT users.first_name, users.surname, applications.date_applied, applications.id, applications.status as application_status, applications.interview_date, applicants.job_seeker_cv, jobs.jobTitle FROM applications, users, applicants, jobs WHERE applicants.user_id = users.id AND applications.user_id = users.id AND applications.job_id = jobs.id ");
+            $applications = DB::select("SELECT users.name, applications.date_applied, applications.id, applications.status as application_status, applications.interview_date, applicants.job_seeker_cv, jobs.jobTitle FROM applications, users, applicants, jobs WHERE applicants.user_id = users.id AND applications.user_id = users.id AND applications.job_id = jobs.id ");
             return view('jobApplication', compact('applications'));
         }
 

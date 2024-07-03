@@ -46,11 +46,11 @@
                                 <td>{{ $sn++ }}</td>
                                 <td>{{ $application->jobTitle }}</td>
                                 <td>{{ $application->date_applied }}</td>
-                                <td>{{ $application->first_name." ". $application->surname }}</td>
+                                <td>{{ $application->name }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <a href="{{ Storage::url($application->job_seeker_cv) }}" target="_blank" class="primaryColor btn-sm text-white">View Cv <i class="fa fa-eye"></i></a>
+                                            <a href="{{ asset($application->job_seeker_cv) }}" target="_blank" class="primaryColor btn-sm text-white">View Cv <i class="fa fa-eye"></i></a>
                                         </div>
                                         <div class="col-md-4">
                                             @if ($application->interview_date == null)

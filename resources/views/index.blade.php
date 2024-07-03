@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Online Job Application</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark primaryColor p-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Online Job Application</a>
+            <a class="navbar-brand" href="/">{{('Online Job Application')}}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -52,7 +52,13 @@
     {{-- jobs --}}
     @php
         use Illuminate\Support\Facades\DB;
-        $jobs = DB::select("SELECT jobs.*, users.name as company_name from jobs, users where jobs.user_id = users.id and status = 'unclosed' ");
+        use App\Models\Job;
+        use App\Models\User;
+        $jobs = Job::select('jobs.*', 'users.name as company_name')
+            ->join('users', 'jobs.user_id', '=', 'users.id')
+            ->where('jobs.status', 'unclosed')
+            ->orWhere('jobs.status', 'extended')
+            ->get();
         $today_date = \Carbon\Carbon::now()->format('Y-m-d');
     @endphp
     <div class="container">
@@ -69,6 +75,7 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ $job->jobTitle }}</h4>
                             <p class="card-text">{{ $job->jobDiscription; }}</p>
+                            <p class="card-text">{{__('Job Salary:')}} {{ $job->jobSalary; }}</p>
                             <p class="card-text badge badge-primary company"  style="background-color: #525f7f;">Deadline {{ $job->endOfApllication; }}</p>
 
                             @if($job->endOfApllication < $today_date )
@@ -79,7 +86,7 @@
                                 <!-- Button apply jobs -->
                                 <a href="{{ url('login') }}" class="btn btn-light float-right">Login Apply </a>
                             @endif
-                            <small>Company name: {{ $job->company_name }}</small>
+                            <small>Company name: {{ $job->name }}</small>
                         </div>
                     </div>
                 </div>

@@ -80,7 +80,7 @@
                                 @csrf
                                 <!-- 2 column grid layout with text inputs for the first and last names -->
                                 <div class="row">
-                                    <div class="col-md-6 mb-4">
+                                    {{-- <div class="col-md-6 mb-4">
                                         <div data-mdb-input-init class="form-outline">
                                             <input type="text" id="first_name" name="first_name" class="form-control" />
                                             <input type="hidden" id="role_id" name="role_id" value="3" class="form-control" />
@@ -91,6 +91,14 @@
                                         <div data-mdb-input-init class="form-outline">
                                             <input type="text" id="surname" name="surname" class="form-control" />
                                             <label class="form-label" for="surname">Last name</label>
+                                        </div>
+                                    </div> --}}
+
+                                    <div class="mb-4">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="hidden" id="role_id" name="role_id" value="3" class="form-control" />
+                                            <input type="text" id="name" name="name" class="form-control" />
+                                            <label class="form-label" for="name">Full name</label>
                                         </div>
                                     </div>
                                 </div>
